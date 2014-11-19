@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2014 Actions-semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,7 +191,7 @@ public class DisplayManager {
     public int getOutputDisplayer() {
         int id = -1;
         if (mDisplayService == null) {
-            Log.e(TAG, " Display Service connected failed or mDisplayNum==0!");
+            Log.e(TAG, " Display Service connection failed for mDisplayNum==0!");
             return id;
         }
         try {
@@ -290,7 +290,7 @@ public class DisplayManager {
      * @return if set is successful,return true,otherwise false.  
      */
     public boolean setDisplayerParam(String param) {
-        Log.e(TAG, "enter setDisplayerParam!");
+        Log.e(TAG, "enter setDisplayerParam!" + param);
         if (mDisplayService == null) {
             Log.e(TAG, " Display Service connected failed or mDisplayNum==0!");
             return false;
@@ -580,6 +580,17 @@ public class DisplayManager {
         return result;
     }
     
+	/**
+     * set the scale rate for tv output.
+     * @param xscale x direction scale rate.
+     * @param yscale y direction scale rate.
+     * @return if success return true,or false.
+     */
+    public boolean setLcdDisplayScale(int xscale, int yscale) {
+        boolean result = setDisplayerParam(ConfigInfo.KEY_LCD_SCALE + "=" + (xscale << 8 | yscale));
+        return result;
+    }
+	
     /**
      * get tv's scale rate.
      * @param info x and y direction scale rates.
@@ -783,6 +794,9 @@ public class DisplayManager {
         public int ypbprResPg;
         /**ypbpr res aspect*/
         public int ypbprResAspect;
+		/**lcd scale rate*/
+	    public int lcd_scale;
+
         /**
          * configure info interpratation.
          * @param flattened params which will be interprataed.
@@ -833,7 +847,9 @@ public class DisplayManager {
                     ypbprResPg = Integer.parseInt(v);
                 } else if (k.equals(KEY_YPBPR_RES_ASPECT)) {
                     ypbprResAspect = Integer.parseInt(v);
-                } else {
+                } else if (k.equals(KEY_LCD_SCALE)) {
+                    lcd_scale = Integer.parseInt(v);
+				} else {
                     Log.w(TAG, "unknown display info" + k + v);
                 }
             }
@@ -876,7 +892,8 @@ public class DisplayManager {
         public static final String KEY_YPBPR_RES_PG = "ypbpr-res-pg";
         /***/
         public static final String KEY_YPBPR_RES_ASPECT = "ypbpr-res-aspect";
-
+        /***/
+	    public static final String KEY_LCD_SCALE = "lcd-scale-rate";
     }
     
     /**
@@ -956,4 +973,5 @@ public class DisplayManager {
         /**refresh rate*/
         public float hz;
     }
+
 }

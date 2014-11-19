@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2014 Actions-semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,6 +66,7 @@ public:
 	static const char KEY_YPBPR_RES_HZ[];
 	static const char KEY_YPBPR_RES_PG[];
 	static const char KEY_YPBPR_RES_ASPECT[];
+	static const char KEY_LCD_SCALE[];
 
 	// Paramerter keys about Display Device
 	static const char KEY_ID[];

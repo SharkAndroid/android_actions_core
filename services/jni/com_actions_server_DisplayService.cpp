@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2014 Actions-semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -456,7 +456,7 @@ static jstring actions_server_DisplayService_getHdmiCap(JNIEnv *env,
 		jclass clazz) {
 	ALOGD("enter actions_server_DisplayService_getHdmiCap\n");
 
-	char buf[512];
+	char buf[512] = "";
 	String8 params8;
 
 	int status;
@@ -684,6 +684,15 @@ static jboolean actions_server_DisplayService_setDisplayerParam(JNIEnv *env,
 		}
 	}
 
+	// 10. lcd scale
+	if ((valuestr = disParam.get(DisplayParameters::KEY_LCD_SCALE)) != 0) {
+		int scale_rate = disParam.getInt(DisplayParameters::KEY_LCD_SCALE);
+		ALOGW("set lcd scale rate %s ",valuestr);
+		if (dedevice->de_set_lcd_display_scale(dedevice, scale_rate) == 0) {
+			ALOGW("set lcd scale rate %s ",valuestr);
+		}
+	}
+	
 	return true;
 }
 

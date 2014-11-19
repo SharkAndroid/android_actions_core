@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2014 Actions-semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +48,7 @@ const char DisplayParameters::KEY_WIDTH[] = "width";
 const char DisplayParameters::KEY_HEIGHT[] = "height";
 const char DisplayParameters::KEY_NAME[] = "name";
 const char DisplayParameters::KEY_DES[] = "description";
+const char DisplayParameters::KEY_LCD_SCALE[] = "lcd-scale-rate";
 
 DisplayParameters::DisplayParameters() :
 		mMap() {
@@ -128,7 +129,7 @@ void DisplayParameters::setInt(const char *key, int value) {
 }
 
 void DisplayParameters::setFloat(const char *key, float value) {
-	char str[16]; // 14 should be enough. We overestimate to be safe.
+	char str[16];
 	snprintf(str, sizeof(str), "%g", value);
 	set(key, str);
 }
