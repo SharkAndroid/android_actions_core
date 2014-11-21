@@ -36,7 +36,7 @@ public class PerformanceManager{
 		mPerformanceService = IPerformanceService.Stub.asInterface(
                       	ServiceManager.getService("performanceservice"));
         if (mPerformanceService == null) {
-					Log.e(TAG, "error! can not get PerformanceService!");
+					Log.e(TAG, "Error! can not get PerformanceService!");
 				}
 
 	 }

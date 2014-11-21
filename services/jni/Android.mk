@@ -53,7 +53,7 @@ LOCAL_STATIC_LIBRARIES :=
 base := $(LOCAL_PATH)/../..
 LOCAL_C_INCLUDES += \
 	$(JNI_H_INCLUDE) \
-	android_actions_core/actions/hardware/include/ \
+	actions_hardware/actions/hardware/include/ \
 	$(base)/include 
 
 # No specia compiler flags.

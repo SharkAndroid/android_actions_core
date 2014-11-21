@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2014 Actions-Semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -264,8 +264,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @return whether displayer set is successful or not.
      */
     public boolean setOutputDisplayer1(String id) {
-        Log.d(TAG, "[enter setOutputDisplayer1]\n");
-
+        Log.d(TAG, "[Enter setOutputDisplayer1]\n");
         synchronized (this) {
             boolean ret;
         
@@ -329,7 +328,7 @@ public class DisplayService extends IDisplayService.Stub {
      *            interpretationed to one of 3 bandth width.
      */
     public void setDisplayMode(int mode) {
-        Log.d(TAG, "[enter DisplayService.setDisplayMode]\n");
+        Log.d(TAG, "[Enter DisplayService.setDisplayMode]\n");
         synchronized (this) {
             _setDisplayMode(mode);
         }
@@ -342,7 +341,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param mode the mode which you want to set.
      */
     public void setDisplaySingleMode(int mode) {
-        Log.d(TAG, "[enter DisplayService.setDisplaySingleMode]\n");
+        Log.d(TAG, "[Enter DisplayService.setDisplaySingleMode]\n");
         synchronized (this) {
             _setDisplaySingleMode(mode);
         }
@@ -353,7 +352,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @return hdmi's vid currently.
      */
     public int getHdmiVid() {
-        Log.d(TAG, "[enter DisplayService.getDisplayVid]\n");
+        Log.d(TAG, "[Enter DisplayService.getDisplayVid]\n");
         
         synchronized (this) {
             int vid = _getHdmiVid();
@@ -368,7 +367,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param status hdmi uevent that you want set.
      */
     public void setSwitchStatus(int status) {
-        Log.d(TAG, "[enter DisplayService.setSwitchStatus]\n");
+        Log.d(TAG, "[Enter DisplayService.setSwitchStatus]\n");
         synchronized (this) {
              _setSwitchStatus(status);
         }
@@ -379,7 +378,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @return if hdmi funtion is closed.
      */
     public boolean getHdmiDisconnectFlag() {
-        Log.d(TAG, "[enter DisplayService.getHdmiDisconnectFlag]\n");
+        Log.d(TAG, "[Enter DisplayService.getHdmiDisconnectFlag]\n");
         
         synchronized (this) {
             boolean flag = _getHdmiDisconnectFlag();
@@ -394,7 +393,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param flag plug in and choose hdmi disconnect state, set true, otherwise set false
      */
     public void setHdmiDisconnectFlag(boolean flag) {
-        Log.d(TAG, "[enter DisplayService.setHdmiDisconnectFlag]\n");
+        Log.d(TAG, "[Enter DisplayService.setHdmiDisconnectFlag]\n");
         synchronized (this) {
              _setHdmiDisconnectFlag(flag);
         }
@@ -406,7 +405,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param vid hdmi video id which you want to set.
      */
     public void setHdmiVid(int vid) {
-        Log.d(TAG, "[enter DisplayService.setDisplayVid]\n");
+        Log.d(TAG, "[Enter DisplayService.setDisplayVid]\n");
         synchronized (this) {
              _setHdmiVid(vid);
         }
@@ -553,7 +552,7 @@ public class DisplayService extends IDisplayService.Stub {
      */
     public void addStatusListener(ICableStatusListener listener) throws RemoteException {
         if (listener == null) {
-            throw new NullPointerException("listener is null in addStatusListener");
+            throw new NullPointerException("Listener is null in addStatusListener");
         }
         synchronized (mListeners) {
             IBinder binder = listener.asBinder();
@@ -589,7 +588,7 @@ public class DisplayService extends IDisplayService.Stub {
          */
         public void plugEvent(int value) {
             Message message = new Message();
-            message.what = HOTPLUG; // 1 means hdmi events
+            message.what = HOTPLUG;
             message.arg1 = value;
             Log.d(TAG, "Start to send message Pluged:" + message);
             DisplayService.this.eventHander.sendMessage(message);

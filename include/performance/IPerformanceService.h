@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2012 Actions-Semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,8 +71,6 @@ public:
     virtual bool getSupport() = 0;
 };
 
-// ----------------------------------------------------------------------------
-
 class BnPerformanceService: public BnInterface<IPerformanceService>
 {
 public:
@@ -83,5 +81,4 @@ public:
 };
 
 };
-
 #endif

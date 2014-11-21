@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-semi, Inc.
+ * Copyright (C) 2012 Actions-Semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ namespace android {
 #include <linux/PerformanceState.h>
 
 #ifdef __cplusplus
-}   // namespace android
+}
 #endif
 
 namespace android {
@@ -76,9 +76,5 @@ private:
     virtual    ~PerformanceService();
 
 };
-
-// ----------------------------------------------------------------------------
-
 };
-
 #endif
