@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
 package com.actions.server;
 
@@ -23,14 +23,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
+import android.os.IBinder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
-import android.os.IBinder;
 import android.os.PowerManager;
-import android.view.WindowManagerPolicy;
-import android.os.SystemProperties;
 import android.os.RemoteException;
+import android.os.SystemProperties;
+import android.view.WindowManagerPolicy;
 
 import com.actions.hardware.IDisplayService;
 import com.actions.hardware.ICableStatusListener;
@@ -175,7 +175,9 @@ public class DisplayService extends IDisplayService.Stub {
         mContext = context;
         _init();
         mDisplayerCount = _getDisplayerCount();
-        hdmiMode = SystemProperties.get("ro.hdmi.mode", "alwayson");
+		// boot hdmi with auto mode
+		// you can change hdmiMode in spec.app Actions Tools
+        hdmiMode = SystemProperties.get("ro.hdmi.mode", "auto");
         // boot with lcd display
         // setOutputDisplayer(-1);
         // create a monitor thread.

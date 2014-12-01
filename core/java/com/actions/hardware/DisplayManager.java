@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
 package com.actions.hardware;
 
@@ -98,7 +98,7 @@ public class DisplayManager {
             Log.e(TAG, "Error! can not get the display service!");
             mDisplayNum = 0;
         }
-         Log.e(TAG, "Enter DisplayManager !");
+         Log.e(TAG, "Enter DisplayManager!");
     }
 	
     /** testDisplayService */
@@ -106,7 +106,7 @@ public class DisplayManager {
         try {
             mDisplayService.testDisplayService();
         } catch (Exception e) {
-            Log.e(TAG, "Error! mDisplayService.testDisplayService() fail");
+            Log.e(TAG, "Error: mDisplayService.testDisplayService() fail");
         }
     }
 	
@@ -763,11 +763,11 @@ public class DisplayManager {
         public String audio_chan;
         /**scale mode*/
         public String scale;
-        /***/
+        /**color style*/
         public boolean colorkey;
-        /***/
+        /**color*/
         public int color;
-        /***/
+        /**alpha color*/
         public int alpha;
         /**hdmi width res*/
         public int hdmiResWidth;
@@ -779,7 +779,6 @@ public class DisplayManager {
         public int hdmiResPg;
         /**hdmi width/height,4:3 or 16:9*/
         public int hdmiResAspect;
-
         /**x scale rate*/
         public int scale_x;
         /**y scael rate*/

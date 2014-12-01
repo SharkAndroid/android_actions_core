@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-Semi, Inc.
+ * Copyright (C) 2014 Actions-Semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
  
 package com.actions.hardware;
 
@@ -29,22 +29,22 @@ import com.actions.hardware.IPerformanceService;
 public class PerformanceManager{
 	private static final String TAG = "PerformanceManager";
 
-	private IPerformanceService mPerformanceService;
+	private IPerformanceService mIPerformanceService;
 	
 	public PerformanceManager() {
 			
-		mPerformanceService = IPerformanceService.Stub.asInterface(
-                      	ServiceManager.getService("performanceservice"));
-        if (mPerformanceService == null) {
-					Log.e(TAG, "Error! can not get PerformanceService!");
+		mIPerformanceService = IPerformanceService.Stub.asInterface(
+                      	ServiceManager.getService("PerformanceService"));
+        if (mIPerformanceService == null) {
+					Log.e(TAG, "Error. Can not get PerformanceService!");
 				}
+	}
 
-	 }
     public boolean getMaxPerformance()
     {
-    	try{
-    		return mPerformanceService.getMaxPerformance();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.getMaxPerformance();
+    	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
     	
@@ -53,20 +53,20 @@ public class PerformanceManager{
     
     public boolean putMaxPerformance()
     {
-    	try{
-    		return mPerformanceService.putMaxPerformance();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.putMaxPerformance();
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
     	return false;
     }
     
-    public boolean singleThreadAccelerate( int pid)
+    public boolean singleThreadAccelerate(int pid)
     {
-    	try{
-    		return mPerformanceService.singleThreadAccelerate(pid);
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.singleThreadAccelerate(pid);
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -75,9 +75,9 @@ public class PerformanceManager{
 	
     public boolean cleanAllVmCaches()
     {
-    	try{
-    		return mPerformanceService.cleanAllVmCaches();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.cleanAllVmCaches();
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -86,9 +86,9 @@ public class PerformanceManager{
 	
     public boolean setCpuFreqRange(IBinder who, int min, int max)
     {
-    	try{
-    		return mPerformanceService.setCpuFreqRange(who, min, max);
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.setCpuFreqRange(who, min, max);
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -97,9 +97,9 @@ public class PerformanceManager{
 	
     public boolean restoreCpuFreqRange(IBinder who)
     {
-    	try{
-    		return mPerformanceService.restoreCpuFreqRange(who);
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.restoreCpuFreqRange(who);
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -108,9 +108,9 @@ public class PerformanceManager{
     
     public boolean enbleAutoAdjustBacklight()
     {
-    	try{
-    		return mPerformanceService.enbleAutoAdjustBacklight();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.enbleAutoAdjustBacklight();
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -119,9 +119,9 @@ public class PerformanceManager{
     
     public boolean disableAutoAdjustBacklight()
     {
-    	try{
-    		return mPerformanceService.disableAutoAdjustBacklight();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.disableAutoAdjustBacklight();
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -130,28 +130,31 @@ public class PerformanceManager{
     
     public boolean setAlign()
     {
-    	try{
-    		return mPerformanceService.setAlign();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.setAlign();
+    	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
+
     	return false;
     }
-    	public boolean clearAlign()
+	
+    public boolean clearAlign()
     {
-    	try{
-    		return mPerformanceService.clearAlign();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.clearAlign();
+    	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
+		
     	return false;
     }
 	
     public boolean notifier( int pid)
     {
-    	try{
-    		return mPerformanceService.notifier(pid);
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.notifier(pid);
+    	} catch(Exception e) {
     		e.printStackTrace();
     	}
     	
@@ -160,31 +163,34 @@ public class PerformanceManager{
 	
     public boolean setOpt()
     {
-    	try{
-    		return mPerformanceService.setOpt();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.setOpt();
+    	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
+		
     	return false;
     }
 	
     public boolean clearOpt()
     {
-    	try{
-    		return mPerformanceService.clearOpt();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.clearOpt();
+    	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
+		
     	return false;
     }
     
     public boolean getSupport()
     {
-    	try{
-    		return mPerformanceService.getSupport();
-    	}catch(Exception e){
+    	try {
+    		return mIPerformanceService.getSupport();
+    	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
+		
     	return false;
     }
 }

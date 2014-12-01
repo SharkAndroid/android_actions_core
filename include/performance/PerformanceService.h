@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-Semi, Inc.
+ * Copyright (C) 2014 Actions-Semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
-#ifndef ANDROID_PERFORMANCESERVICE_H
-#define ANDROID_PERFORMANCESERVICE_H
+#ifndef PERFORMANCESERVICE_H
+#define PERFORMANCESERVICE_H
 
 #include <utils/Log.h>
 #include <utils/threads.h>
@@ -48,7 +48,7 @@ public:
 
 	static inline void instantiate() {
 	    defaultServiceManager()->addService(
-	            String16("performanceservice"), new PerformanceService());
+	            String16("PerformanceService"), new PerformanceService());
 	}
 
 	virtual bool getMaxPerformance();
@@ -73,7 +73,7 @@ private:
     int maxPerformaceCount;
     int maxPerformaceOpen;
     void cpuFreqRangInit();
-    virtual    ~PerformanceService();
+    virtual ~PerformanceService();
 
 };
 };

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Actions-Semi, Inc.
+ * Copyright (C) 2014 Actions-Semi, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
-#ifndef ANDROID_IPERFORMANCESERVICE_H
-#define ANDROID_IPERFORMANCESERVICE_H
+#ifndef IPERFORMANCESERVICE_H
+#define IPERFORMANCESERVICE_H
 
 #include <utils/Errors.h>
 #include <utils/KeyedVector.h>
@@ -36,22 +36,22 @@ public:
     static inline sp<IPerformanceService> connect()
    	{
        	sp<IPerformanceService> PerformanceService;
-   			ALOGE("IPerformanceService Connect\n");
+   			ALOGE("IPerformanceService connect\n");
 
 	   		sp<IServiceManager> sm = defaultServiceManager();
 	   		sp<IBinder> binder;
 
 	   		do {
-	   			binder = sm->getService(String16("performanceservice"));
+	   			binder = sm->getService(String16("PerformanceService"));
 	   			if (binder != 0) {
 	   				break;
 	   			}
-	   			ALOGW("performanceservice not published, waiting...");
+	   			ALOGW("PerformanceService not published, waiting...");
 	   			usleep(500000); // 0.5 s
 	   		} while(true);
 
    		PerformanceService = interface_cast<IPerformanceService>(binder);
-   		ALOGE_IF(PerformanceService == 0, "no PerformanceService!?");
+   		ALOGE_IF(PerformanceService == 0, "No PerformanceService!");
    		return PerformanceService;
    	}
 
@@ -74,11 +74,10 @@ public:
 class BnPerformanceService: public BnInterface<IPerformanceService>
 {
 public:
-    virtual status_t    onTransact( uint32_t code,
-                                    const Parcel& data,
-                                    Parcel* reply,
-                                    uint32_t flags = 0);
+    virtual status_t onTransact( uint32_t code,
+                    const Parcel& data,
+                    Parcel* reply,
+                    uint32_t flags = 0);
 };
-
 };
 #endif
