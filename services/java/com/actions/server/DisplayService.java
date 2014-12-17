@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Actions-Semi, Inc.
+ * Copyright (C) 2014 SharkAndroid
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +17,6 @@
 
 package com.actions.server;
 
-import java.util.ArrayList;
-
-import android.util.Log;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,9 +29,12 @@ import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.view.WindowManagerPolicy;
+import android.util.Log;
 
 import com.actions.hardware.IDisplayService;
 import com.actions.hardware.ICableStatusListener;
+
+import java.util.ArrayList;
 
 /**
  * The implementation of the display service.
@@ -83,12 +84,12 @@ public class DisplayService extends IDisplayService.Stub {
     private boolean mHdmiPluggedIn = false;
     //for cvbs
     private boolean mCvbsPluggedIn = false;
-    //indicate hdmi mode when hdmi or cvbs is on
-    private String hdmiMode; 
     //indicate if video is playing
     private boolean mVideoPlay = false;
     
     private HandlerThread mHandlerThread;
+	
+	private String hdmiMode;
 
     private final class ScreenReceiver extends BroadcastReceiver {
 	@Override
@@ -105,10 +106,9 @@ public class DisplayService extends IDisplayService.Stub {
                       if (!getHdmiDisconnectFlag() && !mVideoPlay) {
                           setSwitchStatus(0);
                       }
-
                 }   
             }	    
-
+            Log.d(TAG, "Here receive SCREEN_STATE broadcast,plug flag= " + mVideoPlay);
         }
     }
 
@@ -133,8 +133,7 @@ public class DisplayService extends IDisplayService.Stub {
                     }
                 }	    
             }
-                    Log.d(TAG, "Here receive HDMI_PLUGGED broadcast,plug flag=" + mHdmiPluggedIn);
-
+            Log.d(TAG, "Here receive HDMI_PLUGGED broadcast,plug flag= " + mHdmiPluggedIn);
         }
     }
 
@@ -158,10 +157,8 @@ public class DisplayService extends IDisplayService.Stub {
                         }
                     }
                 }	    
-                    Log.d(TAG, "Here receive CVBS_PLUGGED broadcast,plug flag=" + mHdmiPluggedIn);
-
+                Log.d(TAG, "Here receive CVBS_PLUGGED broadcast,plug flag= " + mHdmiPluggedIn);
             }
-
         }
     }
    	
@@ -175,15 +172,14 @@ public class DisplayService extends IDisplayService.Stub {
         mContext = context;
         _init();
         mDisplayerCount = _getDisplayerCount();
-		// boot hdmi with auto mode
-		// you can change hdmiMode in spec.app Actions Tools
-        hdmiMode = SystemProperties.get("ro.hdmi.mode", "auto");
+		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        mTvoutEventWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "handleTvoutEvent");
+		// start hdmi with alwayson mode
+        hdmiMode = SystemProperties.get("ro.hdmi.mode", "alwayson");
         // boot with lcd display
         // setOutputDisplayer(-1);
         // create a monitor thread.
         // new Thread(new CableMonitorThread()).start();
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        mTvoutEventWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "handleTvoutEvent");
         
         IntentFilter filter = new IntentFilter();
         filter.addAction(WindowManagerPolicy.ACTION_HDMI_PLUGGED);
@@ -266,7 +262,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @return whether displayer set is successful or not.
      */
     public boolean setOutputDisplayer1(String id) {
-        Log.d(TAG, "[Enter setOutputDisplayer1]\n");
+        Log.d(TAG, "Enter setOutputDisplayer1");
         synchronized (this) {
             boolean ret;
         
@@ -330,7 +326,7 @@ public class DisplayService extends IDisplayService.Stub {
      *            interpretationed to one of 3 bandth width.
      */
     public void setDisplayMode(int mode) {
-        Log.d(TAG, "[Enter DisplayService.setDisplayMode]\n");
+        Log.d(TAG, "Enter DisplayService.setDisplayMode");
         synchronized (this) {
             _setDisplayMode(mode);
         }
@@ -343,7 +339,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param mode the mode which you want to set.
      */
     public void setDisplaySingleMode(int mode) {
-        Log.d(TAG, "[Enter DisplayService.setDisplaySingleMode]\n");
+        Log.d(TAG, "Enter DisplayService.setDisplaySingleMode");
         synchronized (this) {
             _setDisplaySingleMode(mode);
         }
@@ -354,12 +350,10 @@ public class DisplayService extends IDisplayService.Stub {
      * @return hdmi's vid currently.
      */
     public int getHdmiVid() {
-        Log.d(TAG, "[Enter DisplayService.getDisplayVid]\n");
-        
+        Log.d(TAG, "Enter DisplayService.getDisplayVid");
         synchronized (this) {
             int vid = _getHdmiVid();
             return vid;
-
         }
     }
     
@@ -369,7 +363,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param status hdmi uevent that you want set.
      */
     public void setSwitchStatus(int status) {
-        Log.d(TAG, "[Enter DisplayService.setSwitchStatus]\n");
+        Log.d(TAG, "Enter DisplayService.setSwitchStatus");
         synchronized (this) {
              _setSwitchStatus(status);
         }
@@ -380,12 +374,10 @@ public class DisplayService extends IDisplayService.Stub {
      * @return if hdmi funtion is closed.
      */
     public boolean getHdmiDisconnectFlag() {
-        Log.d(TAG, "[Enter DisplayService.getHdmiDisconnectFlag]\n");
-        
+        Log.d(TAG, "Enter DisplayService.getHdmiDisconnectFlag");
         synchronized (this) {
             boolean flag = _getHdmiDisconnectFlag();
             return flag;
-
         }
     }
 	
@@ -395,7 +387,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param flag plug in and choose hdmi disconnect state, set true, otherwise set false
      */
     public void setHdmiDisconnectFlag(boolean flag) {
-        Log.d(TAG, "[Enter DisplayService.setHdmiDisconnectFlag]\n");
+        Log.d(TAG, "Enter DisplayService.setHdmiDisconnectFlag");
         synchronized (this) {
              _setHdmiDisconnectFlag(flag);
         }
@@ -407,7 +399,7 @@ public class DisplayService extends IDisplayService.Stub {
      * @param vid hdmi video id which you want to set.
      */
     public void setHdmiVid(int vid) {
-        Log.d(TAG, "[Enter DisplayService.setDisplayVid]\n");
+        Log.d(TAG, "Enter DisplayService.setDisplayVid");
         synchronized (this) {
              _setHdmiVid(vid);
         }
@@ -483,7 +475,7 @@ public class DisplayService extends IDisplayService.Stub {
             String displayer;
             String action;
 
-            Log.d(TAG, "Handler get new events:" + msg);
+            Log.d(TAG, "Handler get new events: " + msg);
 
             if (msg.what == DisplayService.HOTPLUG) {
                 switch (msg.arg1) {
@@ -524,7 +516,7 @@ public class DisplayService extends IDisplayService.Stub {
                 intent.putExtra("type", displayer);
                 if (mContext != null) {
                     mContext.sendBroadcast(intent);
-                    Log.v(TAG, "Send sendBroadcast:" + intent + msg.arg1);
+                    Log.d(TAG, "Send sendBroadcast: " + intent + msg.arg1);
                     return;
                 }
                 notifyStatusListener(displayer, action);
@@ -540,7 +532,7 @@ public class DisplayService extends IDisplayService.Stub {
                 try {
                     listener.mListener.onStatusChanged(displayer, action);
                 } catch (RemoteException e) {
-                    Log.w(TAG, "RemoteException in reportNmea");
+                    Log.d(TAG, "RemoteException in reportNmea");
                     mListeners.remove(listener);
                 }
             }
@@ -608,7 +600,7 @@ public class DisplayService extends IDisplayService.Stub {
         }
 
         public void binderDied() {
-            Log.w(TAG, "DisplayManager status listener died");
+            Log.d(TAG, "DisplayManager status listener died");
             synchronized (mListeners) {
                 mListeners.remove(this);
             }
@@ -653,8 +645,12 @@ public class DisplayService extends IDisplayService.Stub {
     private native void _setSwitchStatus(int status);
 
     private native boolean _getHdmiDisconnectFlag();
+	
     private native void _setHdmiDisconnectFlag(boolean flag);
+	
     private native void _setHdmiVid(int vid);
+	
     private native int _getHdmiVid();
+	
     private native String _getHdmiCap();
 }

@@ -16,13 +16,14 @@
 
 package com.actions.hardware;
 
-import java.util.StringTokenizer;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.util.Log;
 
 import com.actions.hardware.IDisplayService;
 import com.actions.hardware.ICableStatusListener;
+
+import java.util.StringTokenizer;
 
 /**
  * This class lets you access the Display Engine,cvbs and hdmi.
@@ -91,14 +92,14 @@ public class DisplayManager {
                 Log.i(TAG, mDisplayService.toString());
                 mDisplayNum = mDisplayService.getDisplayerCount();
             } catch (RemoteException e) {
-                Log.e(TAG, "RemoteException when get Number of Displayer", e);
+                Log.d(TAG, "RemoteException when get Number of Displayer ", e);
                 mDisplayNum = 0;
             }
         } else {
-            Log.e(TAG, "Error! can not get the display service!");
+            Log.d(TAG, "Error! can not get the display service!");
             mDisplayNum = 0;
         }
-         Log.e(TAG, "Enter DisplayManager!");
+         Log.d(TAG, "Enter DisplayManager!");
     }
 	
     /** testDisplayService */
@@ -106,7 +107,7 @@ public class DisplayManager {
         try {
             mDisplayService.testDisplayService();
         } catch (Exception e) {
-            Log.e(TAG, "Error: mDisplayService.testDisplayService() fail");
+            Log.d(TAG, "Error: mDisplayService.testDisplayService() fail");
         }
     }
 	
@@ -140,7 +141,6 @@ public class DisplayManager {
 
         d = new DisplayerInfo();
         d.unflatten(info);
-
         return d;
     }
 	
@@ -152,7 +152,7 @@ public class DisplayManager {
     public boolean setOutputDisplayer(int dev_id) {
         boolean result = false;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return false;
         }
         try {
@@ -169,19 +169,17 @@ public class DisplayManager {
      * @return whether displayer set is successful or not.
      */
     public boolean setOutputDisplayer(String dev_id) {
-        Log.d(TAG, "[enter DisplayManger.setOutputDisplayer]\n");
+        Log.d(TAG, "Enter DisplayManger.setOutputDisplayer");
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return false;
         }
         try {
             return mDisplayService.setOutputDisplayer1(dev_id);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setOutputDisplayer failed", e);
+            Log.d(TAG, "Display Service setOutputDisplayer failed ", e);
         }
-
         return false;
-
     }
 	
     /**
@@ -191,7 +189,7 @@ public class DisplayManager {
     public int getOutputDisplayer() {
         int id = -1;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connection failed for mDisplayNum==0!");
+            Log.d(TAG, "Display Service connection failed for mDisplayNum==0!");
             return id;
         }
         try {
@@ -199,9 +197,7 @@ public class DisplayManager {
         } catch (Exception e) {
 
         }
-
         return id;
-
     }
 	
     /**
@@ -211,16 +207,15 @@ public class DisplayManager {
     public String getOutputDisplayerStr() {
         String param = null;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return param;
         }
         try {
             param = mDisplayService.getOutputDisplayerStr();
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getOutputDisplayerStr failed", e);
+            Log.d(TAG, "Display Service getOutputDisplayerStr failed ", e);
         }
         return param;
-
     }
 	
     /**
@@ -231,16 +226,15 @@ public class DisplayManager {
     public boolean enableOutput(boolean enable) {
         boolean result = false;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return false;
         }
         try {
             result = mDisplayService.enableOutput(enable);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service enableOutput failed", e);
+            Log.d(TAG, "Display Service enableOutput failed ", e);
         }
         return result;
-
     }
 	
     /**
@@ -252,16 +246,15 @@ public class DisplayManager {
     public boolean enableOutput1(String id, boolean enable) {
         boolean result = false;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return false;
         }
         try {
             result = mDisplayService.enableOutput1(id, enable);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service enableOutput1 failed", e);
+            Log.d(TAG, "Display Service enableOutput1 failed ", e);
         }
         return result;
-
     }
 	
     /**
@@ -272,15 +265,14 @@ public class DisplayManager {
     public boolean setDualDisplay(boolean dualOutput) {
         boolean result = false;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return false;
         }
         try {
             result = mDisplayService.setDualDisplay(dualOutput);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setDualDisplay failed", e);
+            Log.d(TAG, "Display Service setDualDisplay failed ", e);
         }
-
         return result;
     }
 	
@@ -290,17 +282,16 @@ public class DisplayManager {
      * @return if set is successful,return true,otherwise false.  
      */
     public boolean setDisplayerParam(String param) {
-        Log.e(TAG, "Enter setDisplayerParam!" + param);
+        Log.d(TAG, "Enter setDisplayerParam!" + param);
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return false;
         }
         try {
             return mDisplayService.setDisplayerParam(param);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setDisplayerParam failed", e);
+            Log.d(TAG, "Display Service setDisplayerParam failed ", e);
         }
-
         return false;
     }
 	
@@ -311,13 +302,13 @@ public class DisplayManager {
     public String getDisplayerParam() {
         String param = null;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return param;
         }
         try {
             param = mDisplayService.getDisplayerParam();
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getDisplayerParam failed", e);
+            Log.d(TAG, "Display Service getDisplayerParam failed ", e);
         }
         return param;
     }
@@ -330,13 +321,13 @@ public class DisplayManager {
     public String getDisplayerParam(String displayer) {
         String param = null;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return param;
         }
         try {
             param = mDisplayService.getDisplayerParamStr(displayer);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getDisplayerParam failed", e);
+            Log.d(TAG, "Display Service getDisplayerParam failed ", e);
         }
         return param;
     }
@@ -348,7 +339,6 @@ public class DisplayManager {
      * @return if success return true,or false.
      */
     public boolean setScaleMode(String mode) {
-
         return setDisplayerParam(ConfigInfo.KEY_VIDEO_SCALE + "=" + mode);
     }
     
@@ -358,14 +348,12 @@ public class DisplayManager {
      * @return current scale mode.
      */
     public String getScaleMode() {
-
         String param = getDisplayerParam();
         if (param != null) {
             ConfigInfo cfg = new ConfigInfo();
             cfg.unflatten(param);
             return cfg.scale;
         }
-
         return "";
     }
 	
@@ -422,15 +410,14 @@ public class DisplayManager {
      * @return hdmi's vid currently.
      */
     public int getHdmiVid() {
-        Log.d(TAG, "[Enter DisplayManger.getHdmiVid]\n");
+        Log.d(TAG, "Enter DisplayManger.getHdmiVid");
 	 int vid = -1;
         try {
             vid = mDisplayService.getHdmiVid();
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getHdmiVid failed", e);
+            Log.d(TAG, "Display Service getHdmiVid failed ", e);
         }
         return vid;
-
     }
 	
     /**
@@ -440,13 +427,12 @@ public class DisplayManager {
      *
 	 */
     public void setHdmiDisconnectFlag(boolean flag) {
-        Log.d(TAG, "[Enter DisplayManger.setHdmiDisconnectFlag]\n");
+        Log.d(TAG, "Enter DisplayManger.setHdmiDisconnectFlag");
         try {
             mDisplayService.setHdmiDisconnectFlag(flag);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setHdmiDisconnectFlag failed", e);
+            Log.d(TAG, "Display Service setHdmiDisconnectFlag failed ", e);
         }
-
     }
     
     /**
@@ -456,14 +442,13 @@ public class DisplayManager {
 	 *
      */
     public boolean setHdmiVid(int vid) {
-        Log.d(TAG, "[Enter DisplayManger.setHdmiVid]\n");
+        Log.d(TAG, "Enter DisplayManger.setHdmiVid");
         try {
             mDisplayService.setHdmiVid(vid);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setHdmiVid failed", e);
+            Log.d(TAG, "Display Service setHdmiVid failed" , e);
         }
         return true;
-
     }
 
     /**
@@ -483,7 +468,6 @@ public class DisplayManager {
             info.hz = cfg.hdmiResHz;
             return true;
         }
-
         return false;
     }
 	
@@ -495,13 +479,13 @@ public class DisplayManager {
     public String getHdmiCap() {
         String param = null;
         if (m DisplayService == null) {
-            Log.e(TAG, "Display Service connected failed or mDisplayNum==0!");
+            Log.d(TAG, "Display Service connected failed or mDisplayNum==0!");
             return param;
         }
         try {
             param = mDisplayService.getHdmiCap();
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getHdmiCap failed", e);
+            Log.d(TAG, "Display Service getHdmiCap failed ", e);
         }
         return param;
     }
@@ -554,7 +538,6 @@ public class DisplayManager {
 	 *
      */
     public boolean getYpbprParam(DisplayParam info) {
-
         String param = getDisplayerParam();
         if (param != null && info != null) {
             ConfigInfo cfg = new ConfigInfo();
@@ -564,7 +547,6 @@ public class DisplayManager {
             info.hz = cfg.ypbprResHz;
             return true;
         }
-
         return false;
     }
     
@@ -606,7 +588,6 @@ public class DisplayManager {
             info.scale_y = cfg.scale_y;
             return true;
         }
-
         return false;
     }
 	
@@ -636,7 +617,6 @@ public class DisplayManager {
 	 *
      */
     public int getColor() {
-
         String param = getDisplayerParam();
         if (param != null) {
             ConfigInfo cfg = new ConfigInfo();
@@ -653,7 +633,6 @@ public class DisplayManager {
 	 *
      */
     public boolean enableColorKey(boolean enabled) {
-
         return setDisplayerParam(ConfigInfo.KEY_COLORKEY + "=" + enabled);
     }
 
@@ -665,13 +644,13 @@ public class DisplayManager {
     public int getCableState() {
         int state = 0;
         if (mDisplayService == null) {
-            Log.e(TAG, "Display Service connected failed");
+            Log.d(TAG, "Display Service connected failed");
             return state;
         }
         try {
             state = mDisplayService.getCableState();
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getCableState failed", e);
+            Log.d(TAG, "Display Service getCableState failed ", e);
         }
         return state;
     }
@@ -682,14 +661,13 @@ public class DisplayManager {
      * @return if success return true,or false.
      */
     public boolean setDisplayMode(int mode) {
-        Log.d(TAG, "[Enter DisplayManger.setDisplayMode]\n");
+        Log.d(TAG, "Enter DisplayManger.setDisplayMode");
         try {
             mDisplayService.setDisplayMode(mode);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setDisplayerMode failed", e);
+            Log.d(TAG, "Display Service setDisplayerMode failed ", e);
         }
         return true;
-
     }
 	
     /**
@@ -698,14 +676,13 @@ public class DisplayManager {
      * @return if success return true,or false.
      */
     public boolean setDisplaySingleMode(int mode) {
-        Log.d(TAG, "[Enter DisplayManger.setDisplaySingleMode]\n");
+        Log.d(TAG, "Enter DisplayManger.setDisplaySingleMode");
         try {
             mDisplayService.setDisplaySingleMode(mode);
         } catch (Exception e) {
-            Log.e(TAG, "Display Service setDisplayerSingleMode failed", e);
+            Log.d(TAG, "Display Service setDisplayerSingleMode failed ", e);
         }
         return true;
-
     }
 	
     /**
@@ -714,15 +691,14 @@ public class DisplayManager {
      */
     public void setStatusListener(IStatusListener listener) {
         if (mDisplayService == null || listener == null) {
-            Log.e(TAG, "setStatusListener invliad argument listener is null ");
+            Log.d(TAG, "setStatusListener invliad argument listener is null ");
             return;
         }
         try {
             mDisplayService.addStatusListener(new StatusListenerImp(listener));
         } catch (Exception e) {
-            Log.e(TAG, "Display Service getCableState failed", e);
+            Log.d(TAG, "Display Service getCableState failed ", e);
         }
-
     }
 
     /**
@@ -736,19 +712,16 @@ public class DisplayManager {
          * @param status displayer cable status.
          */
         void onStatusChanged(String displayer, String status);
-
     }
 
     private class StatusListenerImp extends ICableStatusListener.Stub {
         private IStatusListener mListener;
-
         StatusListenerImp(IStatusListener listener) {
             mListener = listener;
         }
 
         public void onStatusChanged(String displayer, String status) {
             Log.d(TAG, "StatusListener displayer= " + displayer + "  status= " + status);
-
         }
     }
     
@@ -849,7 +822,7 @@ public class DisplayManager {
                 } else if (k.equals(KEY_LCD_SCALE)) {
                     lcd_scale = Integer.parseInt(v);
 				} else {
-                    Log.w(TAG, "Unknown display info" + k + v);
+                    Log.d(TAG, "Unknown display info " + k + v);
                 }
             }
         }
@@ -934,7 +907,7 @@ public class DisplayManager {
                 } else if (k.equals(KEY_ID)) {
                     mId = Integer.parseInt(v);
                 } else {
-                    Log.w(TAG, "Unknown display info" + k + v);
+                    Log.d(TAG, "Unknown display info " + k + v);
                 }
             }
         }

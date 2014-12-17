@@ -17,4 +17,5 @@
 <permissions>
     <library name="com.actions.hardware"
             file="/system/framework/actions_hardware.jar" />
+
 </permissions>

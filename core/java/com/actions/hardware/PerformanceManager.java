@@ -16,13 +16,13 @@
  
 package com.actions.hardware;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.util.Log;
-import android.content.Context;
-import android.content.Intent;
 
 import com.actions.hardware.IPerformanceService;
 
@@ -36,8 +36,8 @@ public class PerformanceManager{
 		mIPerformanceService = IPerformanceService.Stub.asInterface(
                       	ServiceManager.getService("PerformanceService"));
         if (mIPerformanceService == null) {
-					Log.e(TAG, "Error. Can not get PerformanceService!");
-				}
+			Log.d(TAG, "Error. Can not get PerformanceService!");
+		}
 	}
 
     public boolean getMaxPerformance()
@@ -47,7 +47,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
-    	
     	return false;
     }
     
@@ -58,7 +57,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
     
@@ -69,7 +67,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
 	
@@ -80,7 +77,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
 	
@@ -91,7 +87,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
 	
@@ -102,7 +97,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
     
@@ -113,7 +107,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
     
@@ -124,7 +117,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
     
@@ -135,7 +127,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
-
     	return false;
     }
 	
@@ -146,7 +137,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
-		
     	return false;
     }
 	
@@ -157,7 +147,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-    	
     	return false;
     }
 	
@@ -168,7 +157,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
-		
     	return false;
     }
 	
@@ -179,7 +167,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
-		
     	return false;
     }
     
@@ -190,7 +177,6 @@ public class PerformanceManager{
     	} catch(Exception e) {
     		e.printStackTrace();   		
     	}
-		
     	return false;
     }
 }

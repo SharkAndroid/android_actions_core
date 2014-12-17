@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2008 The Android Open Source Project
+# Copyright (C) 2014 Actions-Semi, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 # This makefile supplies the rules for building a library of JNI code for
 # use by our example platform shared library.
@@ -33,7 +32,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)
 
 # All of the source files that we will compile.
 LOCAL_SRC_FILES:= \
-	DisplayService.cpp \
+    com_actions_server_DisplayService.cpp \
 	DisplayParameters.cpp \
 	onload.cpp
 
@@ -45,9 +44,6 @@ LOCAL_SHARED_LIBRARIES := \
 	libutils \
 	libbinder \
 	libhardware
-
-# No static libraries.
-LOCAL_STATIC_LIBRARIES :=
 
 # Also need the JNI headers.
 base := $(LOCAL_PATH)/../..
